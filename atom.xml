@@ -3,25 +3,25 @@ layout: nil
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
- <title>The iNK blot</title>
- <link href="http://novemberkilo.com/atom.xml" rel="self"/>
- <link href="http://novemberkilo.com/"/>
+ <title>钻天杨</title>
+ <link href="http://zuantianyang.github.com/atom.xml" rel="self"/>
+ <link href="http://zuantianyang.github.com/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://novemberkilo.com/</id>
+ <id>http://zuantianyang.github.com/</id>
  <author>
-   <name>Navin Keswani</name>
-   <email>navin@novemberkilo.com</email>
+   <name>zuantianyang</name>
+   <email>zuantianyang@yahoo.com</email>
  </author>
  {% for post in site.posts limit:10 %}
  <entry>
    <title>{{ post.title }}</title>
-   <link href="http://novemberkilo.com{{ post.url }}"/>
+   <link href="http://zuantianyang.github.com{{ post.url }}"/>
    <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>http://novemberkilo.com{{ post.id }}</id>
+   <id>http://zuantianyang.github.com{{ post.id }}</id>
    <content type="html">{{ post.content | xml_escape }}</content>
    <author>
-     <name>Navin Keswani</name>
-     <uri>http://novemberkilo.com/about.html</uri>
+     <name>zuantianyang</name>
+     <uri>http://zuantianyang.github.com/about.html</uri>
    </author>
  </entry>
  {% endfor %}
