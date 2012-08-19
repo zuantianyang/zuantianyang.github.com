@@ -1,0 +1,17 @@
+---
+layout: post
+title: "python获得模块所在路径"
+tags: [Python]
+---
+
+import os 
+os.path.dirname(modulename.__file__)
+
+Python 2.7.1+ (r271:86832, Apr 11 2011, 18:05:24) 
+[GCC 4.5.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import os
+>>> os.path.dirname(os.__file__)
+'/usr/lib/python2.7'
+>>> 
+
