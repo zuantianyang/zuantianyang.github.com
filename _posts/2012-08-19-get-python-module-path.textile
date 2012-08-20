@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "python获得模块所在路径"
-tags: [Python]
+tags: [python]
 ---
 
 import os 
