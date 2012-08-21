@@ -1,8 +1,6 @@
 h1. About
 
-"钻天杨":http://zuantianyang.github.com, hosted on GitHub. Uses "Jekyll":http://github.com/mojombo/jekyll/tree/master for static site generation.
-
-Elements of this site, mainly pertaining to layout and structure, were drawn from and inspired by "Alex Payne's":http://al3x.net weblog as well as  "Andrew Carter's":http://ascarter.net/ site.
+"钻天杨":http://zuantianyang.github.com, hosted on GitHub. Forked from novemberkilo/novemberkilo.github.com
 
 h1. License
 
