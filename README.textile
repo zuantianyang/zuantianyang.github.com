@@ -1,6 +1,6 @@
 h1. About
 
-"钻天杨":http://zuantianyang.github.com, hosted on GitHub. Forked from http://novemberkilo/novemberkilo.github.com
+"钻天杨":http://zuantianyang.github.com, hosted on GitHub. Forked from http://novemberkilo/novemberkilo.github.com/
 
 h1. License
 
