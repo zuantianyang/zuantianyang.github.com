@@ -1,0 +1,17 @@
+---
+layout: post
+title: "GAE+godaddy+cloudflare"
+tags: [misc]
+---
+
+GAE上搭建博客
+
+godaddy上申请域名
+
+cloudflare：提供CND （Content Delivery Networks，即内容分发网络），在cloudflare上添加godaddy上申请的域名后，
+
+把cname www 指向到ghs.google.com
+
+在到godaddy上面把dns服务器该成PAUL.NS.CLOUDFLARE.COM 和 ROSE.NS.CLOUDFLARE.COM，把godaddy原有的替换掉。
+
+这下再试试登录 你的域名，可以访问gae了.
