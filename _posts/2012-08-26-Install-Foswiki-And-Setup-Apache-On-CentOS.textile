@@ -1,0 +1,130 @@
+---
+layout: post
+title: "CentOS6.2上安装Foswiki及配置Apache"
+tags: [perl]
+---
+
+1.安装foswiki
+[root@zuantianyang-vmlnx ~]yum install rcs perl-libwww-perl perl-CPAN php
+
+到http://foswiki.org/Download/DownloadFoswiki下载最新版foswiki.
+[root@zuantianyang-vmlnx ~]wget http://sourceforge.net/projects/foswiki/files/foswiki/1.1.4/Foswiki-1.1.4.tgz
+[root@zuantianyang-vmlnx ~]tar -xvf Foswiki-1.1.4.tgz
+[root@zuantianyang-vmlnx ~]mv Foswiki-1.1.4 foswiki
+[root@zuantianyang-vmlnx ~]cp -rv foswiki /var/www
+
+更改用户属组：
+[root@zuantianyang-vmlnx ~]cd /var/www
+[root@zuantianyang-vmlnx www]chown -R apache:apache foswiki
+
+2.创建LocalLib.cfg，foswiki用来查找perl库的。
+[root@zuantianyang-vmlnx ~]cd /var/www/foswiki/bin
+[root@zuantianyang-vmlnx bin]cp LocalLib.cfg.txt LocalLib.cfg
+[root@zuantianyang-vmlnx bin]chown apache:apache LocalLib.cfg
+[root@zuantianyang-vmlnx bin]vi LocalLib.cfg
+把$foswikiLibPath这行改成 $foswikiLibPath = "/var/www/foswiki/lib";然后:wq!保存。
+
+3.保护配置页面，设置访问权限:
+[root@zuantianyang-vmlnx bin]cd /var/www/foswiki/data
+[root@zuantianyang-vmlnx data]htpasswd -c .htpasswd zuantianyang
+输入密码后
+[root@zuantianyang-vmlnx data]chown apache:apache .htpasswd
+
+4.创建apache配置文件
+打开http://foswiki.org/Support/ApacheConfigGenerator
+<pre>
+    Host Name: localhost
+    Port: 81
+    Path: /var/www/foswiki
+    URL Path: /foswiki  (直接"/"，短URL，http://localhost:81就可以访问，/foswiki的话要用http://localhost:81/foswiki访问)
+    Short-URLs: Enabled (需要Apache模块mod_rewrite支持)
+    Runtime Engine: CGI
+    Enter the list of user names that are allowed to access configure: zuantianyang
+    Choose your Login Manager: TemplateLogin
+    Page to return when authentication fails: UserRegistration</pre>
+填写相关配置后,"Update config file"
+拷贝生成的内容
+[root@zuantianyang-vmlnx ~]vi /etc/httpd/conf.d/foswiki.conf
+粘贴ApacheConfigGenerator生成的内容
+
+然后把FilesMatch "^(configure)部分修改如下:
+
+<FilesMatch "^(configure)$">
+SetHandler cgi-script
+Order Deny,Allow
+Deny from all
+Allow from localhost
+Require user zuantianyang
+Satisfy All
+</FilesMatch>
+
+:wq!保存退出。
+
+5. 进入http://localhost:81/foswiki/bin/configure进行foswiki配置
+
+http://localhost:81/foswiki/bin/configure一直出现
+"You don&#39t have permission to access /foswiki/bin/configure的错误。
+
+5.1. 查看/var/log/httpd/error_log
+[root@zuantianyang-vmlnx httpd]# tail -f error_log
+
+[Sun Apr 01 11:46:59 2012] [error] [client 127.0.0.1] (13)Permission denied: access to /foswiki denied
+[Sun Apr 01 11:47:00 2012] [error] [client 127.0.0.1] (13)Permission denied: access to /foswiki denied
+[Sun Apr 01 11:47:00 2012] [error] [client 127.0.0.1] (13)Permission denied: access to /foswiki denied
+[Sun Apr 01 11:47:26 2012] [error] [client 127.0.0.1] (13)Permission denied: access to /index.html denied
+
+5.2. 查看foswiki权限:755
+[root@zuantianyang-vmlnx www]# ls -lrt
+total 24
+drwxr-xr-x.  3 apache apache 4096 Jan 31 22:13 svn
+drwxr-xr-x.  2 apache apache 4096 Feb 14 06:33 html
+drwxr-xr-x.  2 apache apache 4096 Feb 14 06:33 cgi-bin
+drwxr-xr-x.  3 apache apache 4096 Mar 15 19:10 error
+drwxr-xr-x.  3 apache apache 4096 Apr  1 09:47 icons
+drwxr-xr-x. 10 apache apache 4096 Apr  1 10:25 foswiki
+
+5.3. 检查SELinux是开启的(http://wiki.centos.org/HowTos/SELinux)
+[root@zuantianyang-vmlnx www]# sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /selinux
+Current mode:                   enforcing
+Mode from config file:          enforcing
+Policy version:                 24
+Policy from config file:        targeted
+
+5.4.查看SELinuxsecurity context(安全上下文),或者SELinux的权限，发现是 unconfined_u:object_r:default_t:s0
+(参考http://docs.fedoraproject.org/en-US/Fedora/13/html/Security-Enhanced_Linux/sect-Security-Enhanced_Linux-Maintaining_SELinux_Labels_-Checking_the_Default_SELinux_Context.html)
+
+[root@zuantianyang-vmlnx www]# ls -lZ
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_script_exec_t:s0 cgi-bin
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_content_t:s0 error
+drwxr-xr-x. apache apache unconfined_u:object_r:default_t:s0 foswiki
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_content_t:s0 html
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_content_t:s0 icons
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_rw_content_t:s0 svn
+
+5.5.更改foswiki的security context(安全上下文)，改成user: system_u type: httpd_sys_content_t
+
+chcon -Rv --user=system_u --type=httpd_sys_content_t foswiki/
+或者
+semanage fcontext -f -l -a -s system_u -t httpd_sys_content_t foswiki/ (需要安装semanage,
+yum whatprovides /usr/sbin/semanage
+yum install policycoreutils-python)
+
+[root@zuantianyang-vmlnx www]# ls -lZ
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_script_exec_t:s0 cgi-bin
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_content_t:s0 error
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_content_t:s0 foswiki
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_content_t:s0 html
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_content_t:s0 icons
+drwxr-xr-x. apache apache system_u:object_r:httpd_sys_rw_content_t:s0 svn
+
+访问http://localhost:81/foswiki/bin/configure成功 然后进行配置。
+
+
+当访问http://localhost:81/foswiki/出现如下错误：
+Foswiki Configuration Error
+Please run configure to create a valid configuration
+If you have already done this, then your lib/LocalSite.cfg is most likely damaged
+
+需要到http://localhost:81/foswiki/bin/configure进行配置。
