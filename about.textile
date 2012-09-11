@@ -2,21 +2,27 @@
 layout: default
 title: About
 ---
-h1. About the author and this site
-<br/>
 
-h3. The Author
+h3. 关于我
 
-钻天杨
+钻天杨， 测控技术与仪器专业毕业， 半导体行业， 自学Linux, Bash, "Perl":http://www.perl.org, "Python":http://www.python.org, 还需熟悉C/C++， 使用"VirtualBox":http://www.virtualbox.org, "CentOS":http://www.centos.org, "Vim":http://www.vim.org ..
 
-h3. The Site
+好多不懂的计算机相关知识：
+* Python web 框架: "Django":https://www.djangoproject.com, "web2py":http://www.web2py.com, "Bottle":http://bottlepy.org, "web.py":http://webpy.org/, "Flask":http://flask.pocoo.org/
+* 网页技术: HTML/CSS/JavaScript/Ajax/jQuery
+* 数据库： "MySQL":http://http://www.mysql.com, "PostgreSQL":http://www.postgresql.org, "MongoDB":http://www.mongodb.org/
+* Perl Wiki: "Foswiki":http://www.foswiki.org
 
-钻天杨的个人博客
+总之，对一切不懂的东西都感兴趣....
 
-h3. License
+h3. 关于本站
 
-除非另有声明，本站文章采用 "知识共享署名-非商业性使用 2.5 中国大陆许可协议"：http://creativecommons.org/licenses/by-nc/2.5/cn/进行许可.
+钻天杨个人博客，使用"Jekyll":https://github.com/mojombo/jekyll, 托管在"Github":https://github.com/ 主要记录一些工作和学习中的知识。
 
-h3. Contact
+h3. 许可协议
 
-Feel free to get in touch.  My email address is zuantianyang at yahoo.com
+除非另有声明，本站文章采用 "知识共享署名-非商业性使用 2.5 中国大陆许可协议":http://creativecommons.org/licenses/by-nc/2.5/cn/进行许可.
+
+h3. 联系方式
+
+邮箱: zuantianyang at yahoo.com
