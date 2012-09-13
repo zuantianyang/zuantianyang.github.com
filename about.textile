@@ -8,13 +8,15 @@ h3. 关于我
 钻天杨， 测控技术与仪器专业毕业， 半导体行业， 自学Linux, Bash, "Perl":http://www.perl.org, "Python":http://www.python.org, 还需熟悉C/C++，
 使用 "VirtualBox":https://www.virtualbox.org,  "Centos":http://www.centos.org,  "Vim":http://www.vim.org ..
 
-好多不懂的计算机相关知识：
+对一切不懂的东西都感兴趣~
+
 * Python web 框架: "Django":https://www.djangoproject.com, "web2py":http://www.web2py.com, "Bottle":http://bottlepy.org, "web.py":http://webpy.org/, "Flask":http://flask.pocoo.org/
 * 网页技术: HTML/CSS/JavaScript/Ajax/jQuery
 * 数据库： "MySQL":http://http://www.mysql.com, "PostgreSQL":http://www.postgresql.org, "MongoDB":http://www.mongodb.org/
 * Perl Wiki: "Foswiki":http://www.foswiki.org
 
-总之，对一切不懂的东西都感兴趣....
+......
+
 
 h3. 关于本站
 
