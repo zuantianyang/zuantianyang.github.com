@@ -1,0 +1,11 @@
+---
+layout: post
+title: "command not found"
+tags: [linux]
+---
+
+今天从windows下拷贝一pyhthon脚本a.py到linux下，给a.py加了python路径 !#/usr/bin/python 然后chmod +x  a.py给脚本以可执行权限~
+
+终端下运行./a.py时报错， command not found. 明明/usr/bin/python存在的啊， 用python a.py就可以执行，
+
+文件是从windows下拷贝过来的，估计是编码问题造成的，运行dos2unix a.py后 再执行./a.py 脚本这下可以运行了～～
