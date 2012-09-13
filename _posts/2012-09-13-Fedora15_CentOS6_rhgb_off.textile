@@ -1,0 +1,19 @@
+---
+layout: post
+title: "让Fedora 15/CentOS 6显示详细启动信息，不显示进度条"
+tags: [linux]
+---
+
+CentOS 6/Fedora 15 系统启动时出现读进度条，然后进入系统，但我比较习惯看到具体的启动信息，所以修改 /boot/grub/grub.conf 文件。
+
+[root@zuantianyang-vmlnx~]# vim /boot/grub/grub.conf
+default=0
+timeout=0
+splashimage=(hd0,0)/grub/splash.xpm.gz
+hiddenmenu
+title Fedora (2.6.40.4-5.fc15.i686.PAE)
+        root (hd0,0)
+        kernel /vmlinuz-2.6.40.4-5.fc15.i686.PAE ro root=/dev/mapper/vg_zuantianyangvmlnx-lv_root rd_LVM_LV=vg_zuantianyangvmlnx/lv_root rd_LVM_LV=vg_zuantianyangvmlnx/lv_swap rd_NO_LUKS rd_NO_MD rd_NO_DM LANG=en_US.UTF-8 SYSFONT=latarcyrheb-sun16 KEYTABLE=us rhgb quiet
+        initrd /initramfs-2.6.40.4-5.fc15.i686.PAE.img
+
+ "rhgb"表示"redhat graphics boot"，图形进度条模式，将"rhgb"去掉,保存，这样就可以返回原来的启动信息模式了。
