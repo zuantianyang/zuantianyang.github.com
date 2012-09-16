@@ -7,3 +7,4 @@ google_analytics_code: UA-34180992-1
 lsi: false
 source: .
 destination: ./_site
+markdown: rdiscount
