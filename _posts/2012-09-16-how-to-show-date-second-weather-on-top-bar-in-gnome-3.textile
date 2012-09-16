@@ -1,0 +1,62 @@
+---
+layout: post
+title: "gnome3 时间显示日期,秒和天气信息"
+tags: [linux]
+---
+虚拟机VritualBox中安装fedora15，之前禁用了3D，时间显示会显示日期和秒，还有天气信息，
+
+今天启用了3D,发现gnome 3不能显示日期，秒和天气信息了～
+
+显示日期和秒：
+
+打开terminal，运行以下命令，不需要root.
+
+gsettings set org.gnome.shell.clock show-date true
+
+gsettings set org.gnome.shell.clock show-seconds true
+
+运行后及时生效,天气貌似无法直接设置，需安装插件: "http://justinstories.wordpress.com/2011/05/27/five-must-have-gnome-shell-extensions-for-fedora-15":http://justinstories.wordpress.com/2011/05/27/five-must-have-gnome-shell-extensions-for-fedora-15
+
+"http://dnmouse.org/autoten/gnome-3-extra-tips/192-gnome-shell-weather-extension.html":http://dnmouse.org/autoten/gnome-3-extra-tips/192-gnome-shell-weather-extension.html
+
+"https://github.com/simon04/gnome-shell-extension-weather":https://github.com/simon04/gnome-shell-extension-weather
+
+ 
+su -
+yum install gnome-common @development-tools @development-libs
+git clone https://github.com/simon04/gnome-shell-extension-weather.git
+cd gnome-shell-extension-weather
+./autogen.sh --prefix=/usr
+make
+
+make install
+
+在 "http://sigizmund.info/woeidinfo/":http://sigizmund.info/woeidinfo 中得到你想查看的地方的woeid.
+Singapore (Country)
+
+WOEID: 23424948
+Official country name: Singapore
+
+然后退出root,在你的账户下运行：
+
+[zuantianyang@zuantianyang-vmlnx ~]$gsettings set org.gnome.shell.extensions.weather woeid 23424948 
+
+设置温度单位为摄氏度(celsius)
+
+[zuantianyang@zuantianyang-vmlnx ~]$gsettings set org.gnome.shell.extensions.weather unit celsius
+
+然后重启或者刷新Shell (alt+F2 then r and enter)，半天有看到天气信息，woeid可能有问题，在 "http://sigizmund.info/woeidinfo/":http://sigizmund.info/woeidinfo/
+
+搜索singapore,singapore 出现了WOEID: 1062617，只搜索singapore的话，只出现国家名字，没有城市或者区域名字。
+Singapore (Town)
+
+WOEID: 1062617
+Official country name: Singapore
+District: Central Singapore
+Town: Singapore
+
+[zuantianyang@zuantianyang-vmlnx ~]$gsettings set org.gnome.shell.extensions.weather woeid 1062617
+
+这下天气信息出现了，保险期间还是去 "http://weather.yahoo.com/":http://weather.yahoo.com/ 查找woeid, 搜索你所在城市后，地址栏城市后面有一串数字，这个就是woeid.
+
+"http://weather.yahoo.com/singapore/central-singapore/singapore-1062617/":http://weather.yahoo.com/singapore/central-singapore/singapore-1062617/
