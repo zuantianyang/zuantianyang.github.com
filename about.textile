@@ -12,7 +12,7 @@ h3. 关于我
 
 * Python web 框架: "Django":https://www.djangoproject.com, "web2py":http://www.web2py.com, "Bottle":http://bottlepy.org, "web.py":http://webpy.org/, "Flask":http://flask.pocoo.org/
 * 网页技术: HTML/CSS/JavaScript/Ajax/jQuery
-* 数据库： "MySQL":http://http://www.mysql.com, "PostgreSQL":http://www.postgresql.org, "MongoDB":http://www.mongodb.org/
+* 数据库： "MySQL":http://www.mysql.com, "PostgreSQL":http://www.postgresql.org, "MongoDB":http://www.mongodb.org/
 * Perl Wiki: "Foswiki":http://www.foswiki.org
 
 ......
