@@ -1,0 +1,120 @@
+---
+layout: post
+title: "windows 7 下用VirtualBox安装Fedora 15"
+tags: [virtualbox]
+---
+Windows 7 64 bit
+
+VirbualBox: 4.1.2
+
+Fedora 15
+
+1. 用VirtualBox安装fedora 15到设定日期和时间的时候，点击Foward的时候 界面没反应，不进行下一步，按alt+f4后问题解决
+
+http://www.fedoraforum.org/forum/showthread.php?p=1508223
+
+2. 安装VBOXADDITIONS
+
+[root@zuantianyang-vmlnx ~]#cp -av /media/VBOXADDITIONS_4.1.2_73507 ~
+
+[root@zuantianyang-vmlnx ~]#cd VBOXADDITIONS_4.1.2_73507
+
+[root@zuantianyang-vmlnx VBOXADDITIONS_4.1.2_73507]# ./VBoxLinuxAdditions.run
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 4.1.2 Guest Additions for Linux.........
+VirtualBox Guest Additions installer
+Removing installed version 4.1.2 of VirtualBox Guest Additions...
+Removing existing VirtualBox DKMS kernel modules           [  OK  ]
+Removing existing VirtualBox non-DKMS kernel modules       [  OK  ]
+Building the VirtualBox Guest Additions kernel modules
+The gcc utility was not found. If the following module compilation fails then
+this could be the reason and you should try installing it.
+
+The headers for the current running kernel were not found. If the following
+module compilation fails then this could be the reason.
+The missing package can be probably installed with
+yum install kernel-devel-2.6.40.4-5.fc15.i686.PAE
+
+Building the main Guest Additions module                   [FAILED]
+(Look at /var/log/vboxadd-install.log to find out what went wrong)
+Installing the Window System drivers
+Installing X.Org Server 1.10 modules                       [  OK  ]
+Setting up the Window System to use the Guest Additions    [  OK  ]
+You may need to restart the hal service and the Window System (or just restart
+the guest system) to enable the Guest Additions.
+
+Installing graphics libraries and desktop services componen[  OK  ]
+[root@zuantianyang-vmlnx VBOXADDITIONS_4.1.2_73507]# yum update
+Loaded plugins: langpacks, presto, refresh-packagekit
+Setting up Update Process
+No Packages marked for Update
+[root@zuantianyang-vmlnx VBOXADDITIONS_4.1.2_73507]# yum upgrade
+Loaded plugins: langpacks, presto, refresh-packagekit
+Setting up Upgrade Process
+No Packages marked for Update
+[root@zuantianyang-vmlnx VBOXADDITIONS_4.1.2_73507]# uname -a
+Linux zuantianyang-vmlnx 2.6.40.4-5.fc15.i686.PAE #1 SMP Tue Aug 30 14:43:52 UTC 2011 i686 i686 i386 GNU/Linux
+
+[root@zuantianyang-vmlnx VBOXADDITIONS_4.1.2_73507]#yum install kernel-devel-2.6.40.4-5.fc15.i686.PAE
+Loaded plugins: langpacks, presto, refresh-packagekit
+Setting up Install Process
+No package kernel-devel-2.6.40.4-5.fc15.i686.PAE available.
+Error: Nothing to do
+
+在google上搜索kernel-devel-2.6.40.4-5.fc15.i686.PAE，没有任何结果，搜索这个kernel-devel-2.6.40.4-5.fc15.i686 PAE 搜索到kernel-PAE-devel-2.6.40.4-5.fc15.i686.rpm
+
+http://pkgs.org/fedora-15/fedora-updates-i386/kernel-PAE-devel-2.6.40.4-5.fc15.i686.rpm/download/
+
+下载kernel-PAE-devel-2.6.40.4-5.fc15.i686.rpm后安装
+
+[root@zuantianyang-vmlnx Downloads]#rpm -ivh kernel-PAE-devel-2.6.40.4-5.fc15.i686.rpm
+
+[root@zuantianyang-vmlnx VBOXADDITIONS_4.1.2_73507]# ./VBoxLinuxAdditions.run
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 4.1.2 Guest Additions for Linux.........
+VirtualBox Guest Additions installer
+Removing installed version 4.1.2 of VirtualBox Guest Additions...
+Removing existing VirtualBox DKMS kernel modules           [  OK  ]
+Removing existing VirtualBox non-DKMS kernel modules       [  OK  ]
+Building the VirtualBox Guest Additions kernel modules
+The gcc utility was not found. If the following module compilation fails then
+this could be the reason and you should try installing it.
+
+Building the main Guest Additions module                   [FAILED]
+(Look at /var/log/vboxadd-install.log to find out what went wrong)
+Installing the Window System drivers
+Installing X.Org Server 1.10 modules                       [  OK  ]
+Setting up the Window System to use the Guest Additions    [  OK  ]
+You may need to restart the hal service and the Window System (or just restart
+the guest system) to enable the Guest Additions.
+
+Installing graphics libraries and desktop services componen[  OK  ]
+
+
+安装gcc:
+
+[root@zuantianyang-vmlnx VBOXADDITIONS_4.1.2_73507]#yum -y install gcc
+
+继续安装VBOXADDITIONS:
+[root@zuantianyang-vmlnx VBOXADDITIONS_4.1.2_73507]# ./VBoxLinuxAdditions.run
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 4.1.2 Guest Additions for Linux.........
+VirtualBox Guest Additions installer
+Removing installed version 4.1.2 of VirtualBox Guest Additions...
+Removing existing VirtualBox DKMS kernel modules           [  OK  ]
+Removing existing VirtualBox non-DKMS kernel modules       [  OK  ]
+Building the VirtualBox Guest Additions kernel modules
+Building the main Guest Additions module                   [  OK  ]
+Building the shared folder support module                  [  OK  ]
+Building the OpenGL support module                         [  OK  ]
+Doing non-kernel setup of the Guest Additions              [  OK  ]
+Starting the VirtualBox Guest Additions                    [  OK  ]
+Installing the Window System drivers
+Installing X.Org Server 1.10 modules                       [  OK  ]
+Setting up the Window System to use the Guest Additions    [  OK  ]
+You may need to restart the hal service and the Window System (or just restart
+the guest system) to enable the Guest Additions.
+
+Installing graphics libraries and desktop services componen[  OK  ]
+
+重启fedora15后就可以实现全屏了。
