@@ -1,14 +1,15 @@
 ---
 layout: post
 title: "windows下subversion客户端"
-tags: [linux]
+tags: [windows]
 ---
+
 http://stackoverflow.com/questions/613119/svn-client-binaries-for-windows
 
 http://superuser.com/questions/33513/which-subversion-client-should-i-use
 
 http://subversion.apache.org/packages.html#windows
 
-命令行客户端（推荐):http://www.sliksvn.com
+命令行客户端（推荐): http://www.sliksvn.com
 
-图形化客户端:http://tortoisesvn.tigris.org
+图形化客户端: http://tortoisesvn.tigris.org
