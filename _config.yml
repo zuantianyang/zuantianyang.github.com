@@ -1,7 +1,6 @@
 permalink: /:year/:month/:title
-auto: true
-server: true
-server_port: 3000
+serve: true
+port: 3000
 pygments: true
 google_analytics_code: UA-34180992-1
 lsi: false
