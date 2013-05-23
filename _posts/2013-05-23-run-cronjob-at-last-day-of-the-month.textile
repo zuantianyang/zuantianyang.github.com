@@ -1,0 +1,27 @@
+---
+layout: post
+title: "在每月的最后一天执行定时任务"
+tags: [linux]
+---
+Linux下定时任务crontab
+
+用命令crontab -e创建
+
+格式
+*     *     *   *    *        command to be executed
+-     -     -   -    -
+|  |  |  |  |
+|  |  |  |    +----- day of week (0 - 6) (Sunday=0)
+|     |     |   +------- month (1 - 12)
+|     |     +--------- day of        month (1 - 31)
+|     +----------- hour (0 - 23)
++------------- min (0 - 59)
+
+每月最后一天运行cronjob
+
+00 08 28-31 * * [ "$(date +%d -d tomorrow)" = "01" ] && execute_this
+
+参考:
+"http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/":http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/
+"http://blog.nexcess.net/2013/05/09/cron-job-for-the-last-day-of-the-month/":http://blog.nexcess.net/2013/05/09/cron-job-for-the-last-day-of-the-month/
+
