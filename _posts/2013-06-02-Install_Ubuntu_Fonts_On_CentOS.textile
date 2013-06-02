@@ -4,7 +4,7 @@ title: "CentOS使用Ubuntu字体"
 tags: [linux]
 ---
 
-到"http://font.ubuntu.com":http://font.ubuntu.com 下载Ubuntu字体
+到 "http://font.ubuntu.com":http://font.ubuntu.com  下载Ubuntu字体
 
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 
